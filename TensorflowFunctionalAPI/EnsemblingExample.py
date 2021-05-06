@@ -9,7 +9,7 @@ import cv2
 """
 In the code below, get_model function returns a convolution model.
 model1 , model2 , model3 creates 3 instances of the same model architecture.
-Using the layers.average function the ensemble_model ensemble the set of models into a single model that averages their predictions
+Using the layers.average function the ensemble_model ensemble the set of models into a single model that averages their predictions.
 """
 
 def get_model():
@@ -33,5 +33,13 @@ y2 = convModel2(inputs)
 y3 = convModel3(inputs)
 
 outputs = layers.average([y1, y2, y3])
+
+# Creating the Model:
 ensemble_model = keras.Model(inputs=inputs, outputs=outputs)
 
+# Getting the Model summary:
+ensemble_model.summary()
+
+# Display the Model in a Block Diagram  
+keras.utils.plot_model(ensemble_model, "model_image.png") # Include 'show_shapes=True' as a parameter to display th shapes of the respective layers.
+cv2.imshow("model_image.png")
