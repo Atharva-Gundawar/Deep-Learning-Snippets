@@ -14,11 +14,11 @@ Using the layers.average function the ensemble_model ensemble the set of models 
 
 def get_model():
     inputs = keras.Input(shape=(28, 28, 1), name="img")
-    x = layers.Conv2D(16, 3, activation="relu")(inputs)
-    x = layers.Conv2D(32, 3, activation="relu")(x)
-    x = layers.MaxPooling2D(3)(x)
-    x = layers.Conv2D(32, 3, activation="relu")(x)
-    x = layers.Conv2D(16, 3, activation="relu")(x)
+    x = layers.Conv2D(16, 3, activation="relu" , name="ensemble_Conv1")(inputs)
+    x = layers.Conv2D(32, 3, activation="relu" , name="ensemble_Conv2")(x)
+    x = layers.MaxPooling2D(3 , name="ensemble_MaxPool")(x)
+    x = layers.Conv2D(32, 3, activation="relu" , name="ensemble_Conv3")(x)
+    x = layers.Conv2D(16, 3, activation="relu" , name="ensemble_Conv4")(x)
     outputs = layers.GlobalMaxPooling2D()(x)
     return keras.Model(inputs, outputs)
 
