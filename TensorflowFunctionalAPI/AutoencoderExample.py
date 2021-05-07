@@ -43,3 +43,8 @@ encoded_img = encoder(autoencoder_input)
 decoded_img = decoder(encoded_img)
 autoencoder = keras.Model(autoencoder_input, decoded_img, name="autoencoder")
 autoencoder.summary()
+
+
+# Display the Model in a Block Diagram  
+keras.utils.plot_model(autoencoder, "autoencoder.png") # Include 'show_shapes=True' as a parameter to display th shapes of the respective layers.
+cv2.imshow("autoencoder.png")
