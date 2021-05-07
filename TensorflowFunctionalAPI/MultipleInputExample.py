@@ -61,5 +61,3 @@ siamese_model = keras.models.Model([input_left, input_right], output)
 # plot model graph
 keras.utils.plot_model(siamese_model, "siamese_model.png") # Include 'show_shapes=True' as a parameter to display th shapes of the respective layers.
 cv2.imshow("siamese_model.png")
-
-
