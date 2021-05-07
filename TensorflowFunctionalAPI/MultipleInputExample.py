@@ -17,13 +17,13 @@ import cv2
 
 def base_network(input_shape = (28,28,)):
     input = layers.Input(shape=input_shape, name="base_input")
-    x = layers.Conv2D(16, 3, activation="relu")(input)
-    x = layers.Conv2D(32, 3, activation="relu")(x)
-    x = layers.MaxPooling2D(3)(x)
-    x = layers.Conv2D(32, 3, activation="relu")(x)
-    x = layers.Conv2D(16, 3, activation="relu")(x)
+    x = layers.Conv2D(16, 3, activation="relu" , name="Conv1")(input)
+    x = layers.Conv2D(32, 3, activation="relu" , name="Conv2")(x)
+    x = layers.MaxPooling2D(3 , name="MaxPool")(x)
+    x = layers.Conv2D(32, 3, activation="relu" , name="Conv3")(x)
+    x = layers.Conv2D(16, 3, activation="relu" , name="Conv4")(x)
     x = layers.Flatten(name="flatten_input")(x)
-    x = layers.Dense(16, activation='relu')(x)
+    x = layers.Dense(16, activation='relu' , name="Dense1")(x)
 
     return keras.models.Model(inputs=input, outputs=x)
 
@@ -40,7 +40,7 @@ def eucl_dist_output_shape(shapes):
 
 input_shape = (28,28,)
 
-base_network = base_network()
+base_network = base_network(input_shape)
 keras.utils.plot_model(base_network, "base_network.png") # Include 'show_shapes=True' as a parameter to display th shapes of the respective layers.
 cv2.imshow("base_network.png")
 
