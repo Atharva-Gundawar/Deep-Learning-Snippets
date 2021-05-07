@@ -11,17 +11,16 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
-from tensorflow.keras import backend as K
 import cv2
 
 # Defining the Input layer
-input_layer = Input(shape=(28, 28, 1))
+input_layer = layers.Input(shape=(28, 28, 1))
 
 # first_dense = Dense(units='128', activation='relu')(input_layer)
 # second_dense = Dense(units='128', activation='relu')(first_dense)
 
 # Define the Hidden Layers:
-x = layers.Conv2D(16, 3, activation="relu")(inputs)
+x = layers.Conv2D(16, 3, activation="relu")(input_layer)
 x = layers.Conv2D(32, 3, activation="relu")(x)
 x = layers.MaxPooling2D(3)(x)
 x = layers.Conv2D(32, 3, activation="relu")(x)
