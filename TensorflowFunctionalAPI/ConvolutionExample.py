@@ -9,11 +9,11 @@ import cv2
 inputs = keras.Input(shape=(28, 28, 1), name="img")
 
 # Define the Hidden Layers:
-x = layers.Conv2D(16, 3, activation="relu")(inputs)
-x = layers.Conv2D(32, 3, activation="relu")(x)
-x = layers.MaxPooling2D(3)(x)
-x = layers.Conv2D(32, 3, activation="relu")(x)
-x = layers.Conv2D(16, 3, activation="relu")(x)
+x = layers.Conv2D(16, 3, activation="relu" , name="Conv1")(inputs)
+x = layers.Conv2D(32, 3, activation="relu" , name="Conv2")(x)
+x = layers.MaxPooling2D(3 , name="MaxPool")(x)
+x = layers.Conv2D(32, 3, activation="relu" , name="Conv3")(x)
+x = layers.Conv2D(16, 3, activation="relu" , name="Conv4")(x)
 
 # Adding the Last Layer:
 outputs = layers.GlobalMaxPooling2D()(x)
