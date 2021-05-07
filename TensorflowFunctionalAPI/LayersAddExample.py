@@ -15,16 +15,16 @@ Using the layers.average function the ensemble_model ensemble the set of models 
 inputs = keras.Input(shape=(32, 32, 3) , name="img")
 
 # Define the First Hidden Layers:
-x = layers.Dense(255, activation="relu")(inputs) 
+x = layers.Dense(255, activation="relu" , name="Add_Dense1")(inputs) 
 
 # Creating First Data Path way:
-x1 = layers.Dense(32, activation="relu")(x)
-x1 = layers.Dense(16, activation="relu")(x1)
+x1 = layers.Dense(32, activation="relu" , name="Add_Dense2")(x)
+x1 = layers.Dense(16, activation="relu" , name="Add_Dense3")(x1)
 
 # Creating Second Data Path way:
-x2 = layers.Dense(128, activation="relu")(x)
-x2 = layers.Dense(64, activation="relu")(x2)
-x2 = layers.Dense(16, activation="relu")(x2)
+x2 = layers.Dense(128, activation="relu" , name="Add_Dense4")(x)
+x2 = layers.Dense(64, activation="relu" , name="Add_Dense5")(x2)
+x2 = layers.Dense(16, activation="relu" , name="Add_Dense6")(x2)
 
 # Merging the Data Path ways:
 added = layers.Add()([x1, x2])
