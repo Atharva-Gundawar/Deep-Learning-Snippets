@@ -8,11 +8,11 @@ import cv2
 
 # Defining the Encoder
 encoder_input = keras.Input(shape=(28, 28, 1), name="original_img")
-x = layers.Conv2D(16, 3, activation="relu")(encoder_input)
-x = layers.Conv2D(32, 3, activation="relu")(x)
-x = layers.MaxPooling2D(3)(x)
-x = layers.Conv2D(32, 3, activation="relu")(x)
-x = layers.Conv2D(16, 3, activation="relu")(x)
+x = layers.Conv2D(16, 3, activation="relu" , name="Encoder_Conv1")(encoder_input)
+x = layers.Conv2D(32, 3, activation="relu" , name="Encoder_Conv2")(x)
+x = layers.MaxPooling2D(3 , name="Encoder_MaxPool")(x)
+x = layers.Conv2D(32, 3, activation="relu" , name="Encoder_Conv3")(x)
+x = layers.Conv2D(16, 3, activation="relu" , name="Encoder_Conv4")(x)
 encoder_output = layers.GlobalMaxPooling2D()(x)
 
 # Creating Encoder model
@@ -22,11 +22,11 @@ encoder.summary()
 # Defining the Decoder
 decoder_input = keras.Input(shape=(16,), name="encoded_img")
 x = layers.Reshape((4, 4, 1))(decoder_input)
-x = layers.Conv2DTranspose(16, 3, activation="relu")(x)
-x = layers.Conv2DTranspose(32, 3, activation="relu")(x)
-x = layers.UpSampling2D(3)(x)
-x = layers.Conv2DTranspose(16, 3, activation="relu")(x)
-decoder_output = layers.Conv2DTranspose(1, 3, activation="relu")(x)
+x = layers.Conv2DTranspose(16, 3, activation="relu" , name="Decoder_ConvT1")(x)
+x = layers.Conv2DTranspose(32, 3, activation="relu" , name="Decoder_ConvT2")(x)
+x = layers.UpSampling2D(3 , name="Decoder_UPS")(x)
+x = layers.Conv2DTranspose(16, 3, activation="relu" , name="Decoder_ConvT3")(x)
+decoder_output = layers.Conv2DTranspose(1, 3, activation="relu" , name="Decoder_ConvT4")(x)
 
 # Creating Decoder Model
 decoder = keras.Model(decoder_input, decoder_output, name="decoder")
