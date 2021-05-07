@@ -14,7 +14,8 @@ from tensorflow.keras import layers
 from tensorflow.keras import backend as K
 import cv2
 
-
+# Base Model , both the images passed to the network will go through 
+# their respective base_network to output an Encoded Vector
 def base_network(input_shape = (28,28,)):
     input = layers.Input(shape=input_shape, name="base_input")
     x = layers.Conv2D(16, 3, activation="relu" , name="Conv1")(input)
@@ -27,17 +28,18 @@ def base_network(input_shape = (28,28,)):
 
     return keras.models.Model(inputs=input, outputs=x)
 
-
+# Calculates the Euclidean Distance between two vectors
 def euclidean_distance(vects):
     x, y = vects
     sum_square = K.sum(K.square(x - y), axis=1, keepdims=True)
     return K.sqrt(K.maximum(sum_square, K.epsilon()))
 
-
+# Helper function for changing the shape of the vector returned by the above function 
 def eucl_dist_output_shape(shapes):
     shape1, shape2 = shapes
     return (shape1[0], 1)
 
+#  Defining the Input size 
 input_shape = (28,28,)
 
 base_network = base_network(input_shape)
