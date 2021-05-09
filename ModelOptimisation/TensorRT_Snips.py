@@ -10,3 +10,19 @@ sudo apt-get -qq install libnvinfer5 #libnvinfer6=6.0.1-1+cuda10.1
 
 pip install -q tensorflow-gpu==2.0.0
 """
+
+# Import the Libraries
+from __future__ import absolute_import, division, print_function, unicode_literals
+import os
+import time
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.python.compiler.tensorrt import trt_convert as trt
+from tensorflow.python.saved_model import tag_constants
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.applications.inception_v3 import InceptionV3
+from tensorflow.keras.applications.inception_v3 import preprocess_input, decode_predictions
