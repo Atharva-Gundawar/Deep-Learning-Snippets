@@ -72,3 +72,7 @@ def load_tf_saved_model(input_saved_model_dir):
   print(f'Loading from {input_saved_model_dir}')
   return tf.saved_model.load(input_saved_model_dir, tags = [tag_constants.SERVING])
 
+# Here we load a previously saved InceptionV3 model.
+saved_model = load_tf_saved_model('inceptionv3_saved_model')
+infer = saved_model.signatures['serving_default']
+print(infer.structured_outputs)
