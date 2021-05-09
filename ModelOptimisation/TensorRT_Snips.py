@@ -48,3 +48,6 @@ def show_predictions(model,num_images=4):
     plt.title(decode_predictions(preds, top=3)[0][0][1])
 
 show_predictions(model)
+
+# Save the entire model as a TensorFlow SavedModel.
+tf.saved_model.save(model, 'inceptionv3_saved_model')
