@@ -1,5 +1,6 @@
-# Product Name
-> Short blurb about what your product does.
+# Deep Learning Snippets 
+
+> This repo will contains some Deep Learning Snippets 
 
 ### File Structure
 ------------
