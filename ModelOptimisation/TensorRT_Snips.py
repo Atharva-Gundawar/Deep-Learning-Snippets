@@ -30,3 +30,21 @@ from tensorflow.keras.applications.inception_v3 import preprocess_input, decode_
 # Loading the model 
 model = InceptionV3(weights='imagenet')
 
+# Predction Fucntion
+def show_predictions(model,num_images=4):
+  for i in range(num_images):
+    img_path = './data/img%d.JPG'%i
+    img = image.load_img(img_path, target_size=(299, 299))
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    x = preprocess_input(x)
+
+    preds = model.predict(x)
+    print('{} - Predicted: {}'.format(img_path, decode_predictions(preds, top=3)[0]))
+
+    plt.subplot(num_images//2,2,i+1)
+    plt.imshow(img)
+    plt.axis('off')
+    plt.title(decode_predictions(preds, top=3)[0][0][1])
+
+show_predictions(model)
