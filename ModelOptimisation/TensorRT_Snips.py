@@ -76,3 +76,33 @@ def load_tf_saved_model(input_saved_model_dir):
 saved_model = load_tf_saved_model('inceptionv3_saved_model')
 infer = saved_model.signatures['serving_default']
 print(infer.structured_outputs)
+
+# Function to get Baseline for Prediction Throughput and Accuracy 
+def predict_and_benchmark_throughput(batched_input, infer, N_warmup_run=50, N_run=1000):
+
+  elapsed_time = []
+  all_preds = []
+  batch_size = batched_input.shape[0]
+
+  for i in range(N_warmup_run):
+    labeling = infer(batched_input)
+    preds = labeling['predictions'].numpy()
+
+  for i in range(N_run):
+    start_time = time.time()
+
+    labeling = infer(batched_input)
+
+    preds = labeling['predictions'].numpy()
+
+    end_time = time.time()
+
+    elapsed_time = np.append(elapsed_time, end_time - start_time)
+    
+    all_preds.append(preds)
+
+    if i % 50 == 0:
+      print('Steps {}-{} average: {:4.1f}ms'.format(i, i+50, (elapsed_time[-50:].mean()) * 1000))
+
+  print('Throughput: {:.0f} images/s'.format(N_run * batch_size / elapsed_time.sum()))
+  return all_preds
