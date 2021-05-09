@@ -66,3 +66,9 @@ def batch_input(batch_size=8):
     return tf.constant(batched_input)
 
 batched_input = batch_input(batch_size=32)
+
+# Load TensorFlow SavedModel
+def load_tf_saved_model(input_saved_model_dir):
+  print(f'Loading from {input_saved_model_dir}')
+  return tf.saved_model.load(input_saved_model_dir, tags = [tag_constants.SERVING])
+
