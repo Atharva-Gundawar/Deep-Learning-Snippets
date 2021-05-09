@@ -64,3 +64,5 @@ def batch_input(batch_size=8):
     batched_input[i, : ] = x
 
     return tf.constant(batched_input)
+
+batched_input = batch_input(batch_size=32)
