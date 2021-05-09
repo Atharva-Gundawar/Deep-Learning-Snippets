@@ -51,3 +51,16 @@ show_predictions(model)
 
 # Save the entire model as a TensorFlow SavedModel.
 tf.saved_model.save(model, 'inceptionv3_saved_model')
+
+# Returns Batchs for Input  
+def batch_input(batch_size=8):
+  batched_input = np.zeros((batch_size,299,299,3),dtype=np.float32)
+  for i in range(batch_size):
+    img_path = './data/img%d.JPG' % (i % 4)
+    img = image.load_img(img_path, target_size=(299,299))
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    x = preprocess_input(x)
+    batched_input[i, : ] = x
+
+    return tf.constant(batched_input)
