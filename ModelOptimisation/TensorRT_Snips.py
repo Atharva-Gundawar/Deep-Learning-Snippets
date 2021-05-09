@@ -26,3 +26,7 @@ from tensorflow.python.saved_model import tag_constants
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.inception_v3 import InceptionV3
 from tensorflow.keras.applications.inception_v3 import preprocess_input, decode_predictions
+
+# Loading the model 
+model = InceptionV3(weights='imagenet')
+
