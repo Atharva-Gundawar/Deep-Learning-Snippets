@@ -108,3 +108,24 @@ def predict_and_benchmark_throughput(batched_input, infer, N_warmup_run=50, N_ru
     return all_preds
 
 all_preds = predict_and_benchmark_throughput(batched_input,infer)
+
+# Displays one prediction
+def show_predictions(model):
+
+  img_path = './data/img0.JPG'  # golden_retriever
+  img = image.load_img(img_path, target_size=(299, 299))
+  x = image.img_to_array(img)
+  x = np.expand_dims(x, axis=0)
+  x = preprocess_input(x)
+  x = tf.constant(x)
+
+  labeling = model(x)
+  preds = labeling['predictions'].numpy()
+  
+  # decode the results into a list of tuples (class, description, probability)
+  # (one such list for each sample in the batch)
+  print('{} - Predicted: {}'.format(img_path, decode_predictions(preds, top=3)[0]))
+  plt.subplot(2,2,1)
+  plt.imshow(img);
+  plt.axis('off');
+  plt.title(decode_predictions(preds, top=3)[0][0][1])
