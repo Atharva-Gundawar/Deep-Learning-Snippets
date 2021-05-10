@@ -137,15 +137,17 @@ show_predictions(infer)
 # To perform graph conversion, we use TrtGraphConverterV2, passing it the directory of a saved model, and any updates we wish to make to its conversion parameters.
 
  
-trt.TrtGraphConverterV2(input_saved_model_dir=None,conversion_params=TrtConversionParams(precision_mode='FP32',
-                                                                                            max_batch_size=1,
-                                                                                            minimum_segment_size=3,
-                                                                                            max_workspace_size_bytes=8000000000,
-                                                                                            use_calibration=True,
-                                                                                            maximum_cached_engines=1,
-                                                                                            is_dynamic_op=True,
-                                                                                            rewriter_config_template=None
-                                                                                            )
+trt.TrtGraphConverterV2(input_saved_model_dir=None,
+                        conversion_params=TrtConversionParams(
+                            precision_mode='FP32',
+                            max_batch_size=1,
+                            minimum_segment_size=3,
+                            max_workspace_size_bytes=8000000000,
+                            use_calibration=True,
+                            maximum_cached_engines=1,
+                            is_dynamic_op=True,
+                            rewriter_config_template=None
+                            )
 
 """
 Conversion Parameters :
