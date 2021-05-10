@@ -189,6 +189,7 @@ def convert_to_trt_graph_and_save(precision_mode='float32',
     print(f'Saving converted model to {output_saved_model_dir}')
     converter.save(output_saved_model_dir=output_saved_model_dir)
 
+# Convert to TF-TRT Float32
 convert_to_trt_graph_and_save(precision_mode='float32',input_saved_model_dir='inceptionv3_saved_model')
 
 # Benchmark TF-TRT Float32
