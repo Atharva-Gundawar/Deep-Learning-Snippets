@@ -26,6 +26,8 @@ from tensorflow.python.saved_model import tag_constants
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.inception_v3 import InceptionV3
 from tensorflow.keras.applications.inception_v3 import preprocess_input, decode_predictions
+from tensorflow.python.compiler.tensorrt import trt_convert as trt
+
 
 # Loading the model 
 model = InceptionV3(weights='imagenet')
@@ -126,24 +128,33 @@ def show_predictions(model):
     # (one such list for each sample in the batch)
     print('{} - Predicted: {}'.format(img_path, decode_predictions(preds, top=3)[0]))
     plt.subplot(2,2,1)
-    plt.imshow(img);
-    plt.axis('off');
+    plt.imshow(img)
+    plt.axis('off')
     plt.title(decode_predictions(preds, top=3)[0][0][1])
 
 show_predictions(infer)
 
 # To perform graph conversion, we use TrtGraphConverterV2, passing it the directory of a saved model, and any updates we wish to make to its conversion parameters.
 
-from tensorflow.python.compiler.tensorrt import trt_convert as trt
  
-trt.TrtGraphConverterV2(
-    input_saved_model_dir=None,
-    conversion_params=TrtConversionParams(precision_mode='FP32',
-                                          max_batch_size=1,
-                                          minimum_segment_size=3,
-                                          max_workspace_size_bytes=8000000000,
-                                          use_calibration=True,
-                                          maximum_cached_engines=1,
-                                          is_dynamic_op=True,
-                                          rewriter_config_template=None,
-                                         )
+trt.TrtGraphConverterV2(input_saved_model_dir=None,conversion_params=TrtConversionParams(precision_mode='FP32',
+                                                                                            max_batch_size=1,
+                                                                                            minimum_segment_size=3,
+                                                                                            max_workspace_size_bytes=8000000000,
+                                                                                            use_calibration=True,
+                                                                                            maximum_cached_engines=1,
+                                                                                            is_dynamic_op=True,
+                                                                                            rewriter_config_template=None
+                                                                                            )
+
+"""
+Conversion Parameters :
+
+precision_mode: This parameter sets the precision mode; which can be one of FP32, FP16, or INT8. Precision lower than FP32, meaning FP16 and INT8, would improve the performance of inference. The FP16 mode uses Tensor Cores or half precision hardware instructions, if possible. The INT8 precision mode uses integer hardware instructions.
+
+max_batch_size: This parameter is the maximum batch size for which TF-TRT will optimize. At runtime, a smaller batch size may be chosen, but, not a larger one.
+
+minimum_segment_size: This parameter determines the minimum number of TensorFlow nodes in a TF-TRT engine, which means the TensorFlow subgraphs that have fewer nodes than this number will not be converted to TensorRT. Therefore, in general, smaller numbers such as 5 are preferred. This can also be used to change the minimum number of nodes in the optimized INT8 engines to change the final optimized graph to fine tune result accuracy.
+
+max_workspace_size_bytes: TF-TRT operators often require temporary workspace. This parameter limits the maximum size that any layer in the network can use. If insufficient scratch is provided, it is possible that TF-TRT may not be able to find an implementation for a given layer.
+"""
