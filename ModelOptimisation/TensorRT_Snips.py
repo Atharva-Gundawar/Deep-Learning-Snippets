@@ -188,3 +188,10 @@ def convert_to_trt_graph_and_save(precision_mode='float32',
 
     print(f'Saving converted model to {output_saved_model_dir}')
     converter.save(output_saved_model_dir=output_saved_model_dir)
+
+convert_to_trt_graph_and_save(precision_mode='float32',input_saved_model_dir='inceptionv3_saved_model')
+
+# Benchmark TF-TRT Float32
+saved_model_loaded = load_tf_saved_model('/content/inceptionv3_saved_model_TFTRT_FP32')
+infer = saved_model_loaded.signatures['serving_default']
+all_preds = predict_and_benchmark_throughput(batched_input,infer)
