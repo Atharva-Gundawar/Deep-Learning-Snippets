@@ -158,3 +158,31 @@ minimum_segment_size: This parameter determines the minimum number of TensorFlow
 
 max_workspace_size_bytes: TF-TRT operators often require temporary workspace. This parameter limits the maximum size that any layer in the network can use. If insufficient scratch is provided, it is possible that TF-TRT may not be able to find an implementation for a given layer.
 """
+
+# Convert a TensorFlow saved model into a TF-TRT Float32 Graph
+def convert_to_trt_graph_and_save(precision_mode='float32',
+                                  input_saved_model_dir='inceptionv3_saved_model',
+                                  calibration_data=batched_input):
+    if precision_mode =='float32':
+        precision_mode = trt.TrtPrecisionMode.FP32
+        converted_save_suffix = '_TFTRT_FP32'
+    if precision_mode =='float16':
+        precision_mode = trt.TrtPrecisionMode.FP16
+        converted_save_suffix = '_TFTRT_FP16'
+
+    output_saved_model_dir = input_saved_model_dir + converted_save_suffix
+
+    conversion_params = trt.DEFAULT_TRT_CONVERSION_PARAMS._replace(
+        precision_mode=precision_mode,
+        max_workspace_size_bytes = 8000000000
+    ) 
+    converter = trt.TrtGraphConverterV2(
+        input_saved_model_dir=input_saved_model_dir,
+        conversion_params=conversion_params
+    )
+    print(f'Convertion {input_saved_model_dir} to TF-TRT graph precision mode {precision_mode}')
+
+    converter.convert()
+
+    print(f'Saving converted model to {output_saved_model_dir}')
+    converter.save(output_saved_model_dir=output_saved_model_dir)
