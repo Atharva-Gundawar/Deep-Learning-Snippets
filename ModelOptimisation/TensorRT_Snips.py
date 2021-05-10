@@ -28,7 +28,19 @@ from tensorflow.keras.applications.inception_v3 import InceptionV3
 from tensorflow.keras.applications.inception_v3 import preprocess_input, decode_predictions
 from tensorflow.python.compiler.tensorrt import trt_convert as trt
 
+# Checking TensorRT Version
+from tensorflow.compiler.tf2tensorrt.wrap_py_utils import get_linked_tensorrt_version
+from tensorflow.compiler.tf2tensorrt.wrap_py_utils import get_loaded_tensorrt_version
 
+print(f"Linked TensorRT version {get_linked_tensorrt_version()}")
+print(f"Loaded TensorRT version {get_loaded_tensorrt_version()}")
+
+"""
+Output should look like : 
+Linked TensorRT version (5, 1, 5)
+Loaded TensorRT version (5, 1, 5)
+If you get (0, 0, 0) it means Your python compiler can't find TensorRT
+"""
 # Loading the model 
 model = InceptionV3(weights='imagenet')
 
