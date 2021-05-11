@@ -1,2 +1,4 @@
-numpy==1.18.4
 tensorflow==2.4.1
+matplotlib==3.2.1
+time==1.0.0
+numpy==1.18.4
