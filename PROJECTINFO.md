@@ -10,17 +10,19 @@
     ├── LICENSE
     ├── PROJECTINFO.md
     ├── README.md
-    ├── requirements.txt
-    └───TensorflowFunctionalAPI      
-        ├── AutoencoderExample.py    
-        ├── ConvolutionExample.py    
-        ├── DenseExample.py
-        ├── EnsemblingExample.py     
-        ├── LayersAddExample.py      
-        ├── MultipleInputExample.py  
-        ├── MultipleOutputExample.py 
-        └── ResNetExample.py
-    
+    ├──  requirements.txt
+    ├───TensorflowFunctionalAPI      
+    │    ├── AutoencoderExample.py    
+    │    ├── ConvolutionExample.py    
+    │    ├── DenseExample.py
+    │    ├── EnsemblingExample.py     
+    │    ├── LayersAddExample.py      
+    │    ├── MultipleInputExample.py  
+    │    ├── MultipleOutputExample.py 
+    │    └── ResNetExample.py
+    └── ModelOptimisation
+         ├──TensorRT_Examples.py
+         └──TensorRT_Snips.py
 --------
 
 ## Contributing
