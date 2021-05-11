@@ -147,7 +147,6 @@ def show_predictions(model):
 show_predictions(infer)
 
 # To perform graph conversion, we use TrtGraphConverterV2, passing it the directory of a saved model, and any updates we wish to make to its conversion parameters.
-
  
 trt.TrtGraphConverterV2(input_saved_model_dir=None,
                         conversion_params=TrtConversionParams(
@@ -170,6 +169,7 @@ trt.TrtGraphConverterV2(input_saved_model_dir=None,
 # minimum_segment_size: This parameter determines the minimum number of TensorFlow nodes in a TF-TRT engine, which means the TensorFlow subgraphs that have fewer nodes than this number will not be converted to TensorRT. Therefore, in general, smaller numbers such as 5 are preferred. This can also be used to change the minimum number of nodes in the optimized INT8 engines to change the final optimized graph to fine tune result accuracy.
 
 # max_workspace_size_bytes: TF-TRT operators often require temporary workspace. This parameter limits the maximum size that any layer in the network can use. If insufficient scratch is provided, it is possible that TF-TRT may not be able to find an implementation for a given layer.
+
 
 # Convert a TensorFlow saved model into a TF-TRT Float32 Graph
 def convert_to_trt_graph_and_save(precision_mode='float32',
@@ -213,3 +213,26 @@ convert_to_trt_graph_and_save(precision_mode='float16',input_saved_model_dir='in
 saved_model_loaded = load_tf_saved_model('/content/inceptionv3_saved_model_TFTRT_FP16')
 infer = saved_model_loaded.signatures['serving_default']
 all_preds = predict_and_benchmark_throughput(batched_input,infer)
+
+
+# Convert a TensorFlow saved model into a TF-TRT INT8 Graph
+def convert_to_trt_graph_and_save(input_saved_model_dir='inceptionv3_saved_model',
+                                  calibration_data=batched_input):
+    conversion_params = trt.DEFAULT_TRT_CONVERSION_PARAMS._replace(
+        precision_mode=trt.TrtPrecisionMode.INT8, 
+        max_workspace_size_bytes=8000000000, 
+        use_calibration=True)
+    converter = trt.TrtGraphConverterV2(
+        input_saved_model_dir=input_saved_model_dir, 
+        conversion_params=conversion_params)
+
+    output_saved_model_dir = input_saved_model_dir + '_TFTRT_INT8'
+
+    def calibration_input_fn():
+        yield (batched_input, )
+    converter.convert(calibration_input_fn=calibration_input_fn)
+
+    converter.save(output_saved_model_dir=output_saved_model_dir)
+    print('Done Converting to TF-TRT INT8')
+
+convert_to_trt_graph_and_save(input_saved_model_dir='inceptionv3_saved_model')
