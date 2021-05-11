@@ -1,5 +1,7 @@
 # Ref : https://docs.nvidia.com/deeplearning/frameworks/tf-trt-user-guide/index.html#tf-trt-api-20
 
+# My tensorflow version : tf-nightly-gpu-2.0-preview
+
 """
 The name of the Python class has the suffix V2, i.e. TrtGraphConverterV2.
 
@@ -104,3 +106,8 @@ saved_model_loaded = tf.saved_model.load(output_saved_model_dir, tags=[tag_const
 graph_func = saved_model_loaded.signatures[signature_constants.DEFAULT_SERVING_SIGNATURE_DEF_KEY]
 frozen_func = convert_to_constants.convert_variables_to_constants_v2(graph_func)
 output = frozen_func(input_data)[0].numpy()
+
+# Using Automatic Mixed Precision
+opt = tf.train.MomentumOptimizer(learning_rate, momentum)
+opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
+update_op = opt.minimize(loss)
