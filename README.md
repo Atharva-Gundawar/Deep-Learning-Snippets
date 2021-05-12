@@ -1,6 +1,6 @@
 # Deep Learning Snippets 
 
-This repo will contains some Deep Learning Snippets 
+This repo contains mostly Tensorflow Snippets  
 <!-- 
 ## Getting Started
 
