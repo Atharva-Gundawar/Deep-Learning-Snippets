@@ -14,7 +14,8 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
+## Refrences 
 
-* Hat tip to anyone whose code was used
+* https://github.com/tensorflow/tensorrt
+* https://developer.nvidia.com/tensorrt
 
