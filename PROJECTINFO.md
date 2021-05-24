@@ -4,25 +4,59 @@
 
 ### File Structure
 ------------
-    C:.
+    DLS
     ├── .env
     ├── .gitignore
     ├── LICENSE
+    ├── Pipfile
     ├── PROJECTINFO.md
     ├── README.md
-    ├──  requirements.txt
-    ├───TensorflowFunctionalAPI      
-    │    ├── AutoencoderExample.py    
-    │    ├── ConvolutionExample.py    
-    │    ├── DenseExample.py
-    │    ├── EnsemblingExample.py     
-    │    ├── LayersAddExample.py      
-    │    ├── MultipleInputExample.py  
-    │    ├── MultipleOutputExample.py 
-    │    └── ResNetExample.py
-    └── ModelOptimisation
-         ├──TensorRT_Examples.py
-         └──TensorRT_Snips.py
+    ├── requirements.txt
+    │
+    ├───IPython
+    │   ├───Genral
+    │   │   └───images
+    │   │       └── shortcuts.png
+    │   │
+    │   └───GoogleColab
+    │       └── README.md
+    │
+    ├───ModelOptimisation
+    │   ├── README.md
+    │   ├── TensorRT_Examples.py
+    │   └── TensorRT_Snips.py
+    │
+    ├───ProductionDeployment
+    │   ├── README.md
+    │   │
+    │   └───Images
+    │       └───ml_project_life_cycle.png
+    │
+    ├───TensorflowFunctionalAPI
+    │   ├── AutoencoderExample.py
+    │   ├── ConvolutionExample.py
+    │   ├── DenseExample.py
+    │   ├── EnsemblingExample.py
+    │   ├── LayersAddExample.py
+    │   ├── MultipleInputExample.py
+    │   ├── MultipleOutputExample.py
+    │   ├── README.md
+    │   └── ResNetExample.py
+    │
+    └───TextSummerization
+        │   └── Implementations.ipynb
+        │
+        └───BertAndVanilaSummariser
+            ├── BertSummarize.py
+            ├── requirements.txt
+            ├── VanilaSummarize.py
+            │
+            └───summarizer
+                ├── BertParent.py
+                ├── ClusterFeatures.py
+                ├── model_processors.py
+                └── __init__.py
+
 --------
 
 ## Contributing
