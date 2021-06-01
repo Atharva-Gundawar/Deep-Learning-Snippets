@@ -1,9 +1,10 @@
-# Deep Learning Snippets 
+# Deep Learning Snippets
 
-> This repo will contains some Deep Learning Snippets 
+> This repo will contains some Deep Learning Snippets
 
-### File Structure
-------------
+## File Structure
+
+```bash
     DLS
     ├── .env
     ├── .gitignore
@@ -57,11 +58,11 @@
                 ├── model_processors.py
                 └── __init__.py
 
---------
+```
 
 ## Contributing
 
-1. Fork it (https://github.com/Atharva-Gundawar/Deep-Learning-Snippets/fork)
+1. Fork it (<https://github.com/Atharva-Gundawar/Deep-Learning-Snippets/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
