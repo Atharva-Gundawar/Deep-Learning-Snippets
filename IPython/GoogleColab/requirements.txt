@@ -1,6 +1,6 @@
 numpy==1.18.4
 sklearn==0.0
-tensorflow==2.5.0
+tensorflow==2.5.2
 google==3.0.0
 skimage==0.0
 IPython==7.24.1
